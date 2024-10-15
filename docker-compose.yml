@@ -21,7 +21,6 @@ services:
       - 8443:8443
     volumes:
       - ./test.json:/opt/keycloak/data/import/realm.json:ro
-      - ./healthcheckEntrypoint.sh:/opt/keycloak/keycloak_healthcheck.sh
     depends_on:
       keycloak_db:
         condition: service_healthy
