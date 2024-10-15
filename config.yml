@@ -1,0 +1,20 @@
+version: 0.1
+log:
+  level: debug
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+
+http:
+  addr: :5000
+  tls:
+    certificate: /registry/certs/localhost.crt
+    key: /registry/certs/localhost.key
+
+auth:
+  token:
+    realm: http://localhost:8080/realms/test/protocol/docker-v2/auth
+    service: docker-client
+    issuer: http://localhost:8080/realms/test
+    rootcertbundle: /registry/certs/localhost_trust_chain.pem
+  
