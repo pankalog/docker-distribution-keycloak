@@ -1,7 +1,7 @@
 
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:26.0.1
+    image: quay.io/keycloak/keycloak:26.0.6
     command: [ "start-dev", "--import-realm" ]
     restart: unless-stopped
     environment:
@@ -15,12 +15,15 @@ services:
       KC_LOG_LEVEL: INFO
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: keycloak
-      KC_HEALTH_ENABLED: true
+      KC_HEALTH_ENABLED: true  
+      KEYCLOAK_HTTPS_CERTIFICATE_FILE: /opt/jboss/keycloak/adapterconfig/certs/localhost.crt
+      KEYCLOAK_HTTPS_CERTIFICATE_KEY_FILE: /opt/jboss/keycloak/adapterconfig/certs/localhost.key
     ports:
       - 8080:8080
       - 8443:8443
     volumes:
       - ./test.json:/opt/keycloak/data/import/realm.json:ro
+      - ./adapterconfig/certs:/opt/jboss/keycloak/adapterconfig/certs
     depends_on:
       keycloak_db:
         condition: service_healthy
@@ -50,6 +53,7 @@ services:
     volumes:
       - registry-data:/var/lib/registry
       - ./config.yml:/etc/distribution/config.yml  # Mount the config.yml file
+      - ./config.yml:/etc/docker/registry/config.yml  # Mount the config.yml file
       - ./adapterConfig/:/registry
     depends_on:
       keycloak:
