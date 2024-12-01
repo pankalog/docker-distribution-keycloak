@@ -16,5 +16,5 @@ Wait a minute or two until Keycloak is up and running, and then try to log in to
 ```bash
 docker login https://localhost:5001 -u testuser -p secret
 ```
-
+**You need to re-download the adapter config and replace the certificates in the adapterConfig/certs directory before running!**
 *Maybe I will be able to use this as a demo repository down the line!*
